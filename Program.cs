@@ -17,16 +17,26 @@ namespace Flex.Console
 				Logger.Info($"{arg}");
 			}
 
-			// main loop
-			var task = Task.Run(() => {
-				for (int i = 1; i <= 3; i++) {
-					Logger.Info($"Hello World!({i}/3)");
-					Task.Yield();
-					//Thread.Sleep(1000);
-				}
-			});
+			// tasks
+			var tasks = new List<Task>();
+			{
+				var task = Task.Run(() => {
+					for (int i = 1; i <= 3; i++) {
+						Logger.Trace($"Hello World!({i}/3)");
+						Logger.Info($"Hello World!({i}/3)");
+						Logger.Debug($"Hello World!({i}/3)");
+						Logger.Error($"Hello World!({i}/3)");
+						Logger.Warn($"Hello World!({i}/3)");
+						Logger.Fatal($"Hello World!({i}/3)");
+						Task.Yield();
+						//Thread.Sleep(1000);
+					}
+				});
 
-			task.Wait();
+				tasks.Add(task);
+			}
+
+			Task.WaitAll(tasks.ToArray());
 
 			Logger.Info($"Finish.");
 		}
