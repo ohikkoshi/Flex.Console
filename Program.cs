@@ -10,17 +10,17 @@ namespace Flex.Console
 		{
 			// assembly
 			var name = Assembly.GetExecutingAssembly().GetName();
-			System.Console.WriteLine($"{name.Name} ver.{name.Version}");
+			Logger.Info($"{name.Name} ver.{name.Version}");
 
 			// args
 			foreach (var arg in args) {
-				System.Console.WriteLine($"{arg}");
+				Logger.Info($"{arg}");
 			}
 
 			// main loop
 			var task = Task.Run(() => {
 				for (int i = 1; i <= 3; i++) {
-					System.Console.WriteLine($"Hello World!({i}/3)");
+					Logger.Info($"Hello World!({i}/3)");
 					Task.Yield();
 					//Thread.Sleep(1000);
 				}
@@ -28,7 +28,7 @@ namespace Flex.Console
 
 			task.Wait();
 
-			System.Console.WriteLine($"Finish.");
+			Logger.Info($"Finish.");
 		}
 	}
 }
